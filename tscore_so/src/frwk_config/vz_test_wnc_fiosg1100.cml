@@ -518,13 +518,13 @@ TEST_EXE_TAG:				TEST_EXE_31
 TEST_EXE_TYPE:				SERIAL
 TEST_EXE_CUSTOM:			VERIZON
 TEST_EXE_NAME:				vfr_check_wan_ethlan_mocawan_speed
-TEST_EXE_DESC:				LAN ETH1 to WAN MoCA SPEED
+TEST_EXE_DESC:				LAN ETH to WAN MoCA SPEED
 TEST_IMPL_CLASS:            frwk_tests.lan_to_wan_iperf.LanToWanIperf
 TEST_ABORT_ON_FAIL:         True
-TEST_ABORT_MESSAGE:         LAN ETH1 to WAN MoCA SPEED test failed
+TEST_ABORT_MESSAGE:         LAN ETH to WAN MoCA SPEED test failed
 TEST_ACTIVE:                True
 #                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), retryCount
-TEST_EXE_PORTS:				ETH_LAN_1, MOCA_WAN_1, 5011,      10,                150,             100,                2
+TEST_EXE_PORTS:				ETH_LAN_1, MOCA_WAN_1, 5011,      10,                500,             300,                2 || ETH_LAN_2, MOCA_WAN_1, 5012, 10, 500, 300, 2 || ETH_LAN_3, MOCA_WAN_1, 5013, 10, 500, 300, 2 || ETH_LAN_4, MOCA_WAN_1, 5014, 10, 500, 300, 2
 
 [TEST_EXE_32]
 # LAN MoCA to LAN Ethernet SPEED test
@@ -534,13 +534,13 @@ TEST_EXE_TAG:				TEST_EXE_32
 TEST_EXE_TYPE:				SERIAL
 TEST_EXE_CUSTOM:			VERIZON
 TEST_EXE_NAME:				vfr_check_lanmoca_to_lan_speed
-TEST_EXE_DESC:				LAN MoCA to LAN Eth2 SPEED
+TEST_EXE_DESC:				LAN MoCA to LAN Eth SPEED
 TEST_IMPL_CLASS:            frwk_tests.lan_to_lan_iperf.LanToLanIperf
 TEST_ABORT_ON_FAIL:         True
-TEST_ABORT_MESSAGE:         LAN MoCA to LAN Ethernet2 SPEED test failed
+TEST_ABORT_MESSAGE:         LAN MoCA to LAN Ethernet SPEED test failed
 TEST_ACTIVE:                True
 #                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), retryCount
-TEST_EXE_PORTS:				ETH_LAN_2, MOCA_LAN_1, 5011,      10,                80,              70,                 2
+TEST_EXE_PORTS:				ETH_LAN_1, MOCA_LAN_1, 5011,      10,                500,              300,                 2 || ETH_LAN_2, MOCA_LAN_1, 5012, 10, 500, 300, 2 || ETH_LAN_3, MOCA_LAN_1, 5013, 10, 500, 300, 2 || ETH_LAN_4, MOCA_LAN_1, 5014, 10, 500, 300, 2
 
 [TEST_EXE_33]
 # Configure 2.4GHz wireless interface
@@ -558,6 +558,29 @@ TEST_ACTIVE:                True
 #                           Port,               Frequency(GHz), ChannelNumber
 TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, 2.4,            6
 
+[TEST_EXE_33_4]
+# Check Wireless Signal 2.4 GHz
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_33_4
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				check_wireless_2_4
+TEST_EXE_DESC:				Check Wireless signal 2.4 GHz
+TEST_IMPL_CLASS:            frwk_tests.check_wireless_signal_2_4.CheckWirelessSignal
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to check wireless signal 2.4 GHz
+TEST_ACTIVE:                True
+#
+#   +--    0 dBm
+#   |
+#   +--   -4 dBm  Xa (Threshold)
+#   |
+#   +--   -10 dBm Xb (Upper)
+#                           Port,  lxc_if, Xa(dBm), Xb(dBm), ssid_detect_max_try_time(sec)
+TEST_EXE_PORTS:				WIFI_1, wlan0, -55,     -65,     20
+
 [TEST_EXE_34]
 # Connect Wireless Card 2.4 GHz
 GRAMMAR_VERSION:			1.0
@@ -572,23 +595,55 @@ TEST_ABORT_ON_FAIL:         True
 TEST_ABORT_MESSAGE:         Connect wireless card 2.4 GHz test failed
 TEST_ACTIVE:                True
 #                           Port,   Frequency(GHz), InterfaceName, InterfaceIP,     maxWaitTime(sec)
-TEST_EXE_PORTS:				WIFI_1, 2.4,            wlan0,         192.168.1.105,   20
+TEST_EXE_PORTS:				WIFI_1, 2.4,            wlan0,         192.168.1.106,   20
+
+[TEST_EXE_34_7]
+# Ping WAN moca from WiFi 2.4 GHz
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_34_7
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_wnc_ping_wifi_to_moca_wan
+TEST_EXE_DESC:				Ping WAN MoCA from WiFi 2.4 GHz
+TEST_IMPL_CLASS:            frwk_tests.ping_wan.PingWan
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Failed to ping WAN MoCA from WiFi 2.4 GHz
+TEST_ACTIVE:                False
+#                           dut_port
+TEST_EXE_PORTS:				WIFI_1, MOCA_WAN_1
+
+[TEST_EXE_34_8]
+# WiFi 2.4 GHz to WAN MoCA iperf
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_34_8
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				vfr_wnc_check_WiFi_2_4_GHZ_to_wanMoca_iperf
+TEST_EXE_DESC:				WiFi 2.4 GHz to WAN MoCA IPERF
+TEST_IMPL_CLASS:            frwk_tests.lan_to_wan_iperf.LanToWanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         WiFi 2.4 GHz to WAN MoCA IPERF failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), retryCount
+TEST_EXE_PORTS:				WIFI_1,    MOCA_WAN_1, 5011,      5,                 15,              1,                 2
 
 [TEST_EXE_35]
-# WiFi 2.4 GHz to LAN Ethernet3 SPEED test
+# WiFi 2.4 GHz to LAN Ethernet SPEED test
 GRAMMAR_VERSION:			1.0
 PREFIX:						TEST_EXE_
 TEST_EXE_TAG:				TEST_EXE_35
 TEST_EXE_TYPE:				SERIAL
 TEST_EXE_CUSTOM:			VERIZON
-TEST_EXE_NAME:				vfr_check_wifi_2_4_to_lan3_speed
-TEST_EXE_DESC:				WiFi 2.4 GHz to LAN Eth3 SPEED
+TEST_EXE_NAME:				vfr_check_wifi_2_4_to_lan_speed
+TEST_EXE_DESC:				WiFi 2.4 GHz to LAN Eth SPEED
 TEST_IMPL_CLASS:            frwk_tests.lan_to_lan_iperf.LanToLanIperf
 TEST_ABORT_ON_FAIL:         True
-TEST_ABORT_MESSAGE:         WiFi 2.4 GHz to LAN Ethernet3 SPEED test failed
+TEST_ABORT_MESSAGE:         WiFi 2.4 GHz to LAN Ethernet SPEED test failed
 TEST_ACTIVE:                True
 #                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), RetryCount
-TEST_EXE_PORTS:				WIFI_1,    ETH_LAN_3,  5011,      10,                25,              15,                 2
+TEST_EXE_PORTS:				ETH_LAN_1,    WIFI_1,  5011,      10,                25,              5,                 2 || ETH_LAN_2, WIFI_1, 5012, 10, 25, 5, 2 || ETH_LAN_3, WIFI_1, 5013, 10, 25, 5, 2 || ETH_LAN_4, WIFI_1, 5014, 10, 25, 5, 2
 
 [TEST_EXE_36]
 # WiFi 2.4 GHz RSSI after SPEED test
@@ -623,6 +678,28 @@ TEST_ACTIVE:                True
 #                           Port,               Frequency(GHz), ChannelNumber
 TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, 5.0,            36
 
+[TEST_EXE_25_5]
+# Check Wireless Signal 5.0 GHz
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_25_5
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				check_wireless_5_0
+TEST_EXE_DESC:				Check Wireless signal 5.0 GHz
+TEST_IMPL_CLASS:            frwk_tests.check_wireless_signal_5_0.CheckWirelessSignal
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to check wireless signal 5.0 GHz
+TEST_ACTIVE:                True
+#
+#   +--    0 dBm
+#   |
+#   +--   -4 dBm  Xa (Threshold)
+#   |
+#   +--   -10 dBm Xb (Upper)
+#                           Port,  lxc_if, Xa(dBm), Xb(dBm), ssid_detect_max_try_time(sec)
+TEST_EXE_PORTS:				WIFI_1, wlan0, -55,     -65,     20
+
 [TEST_EXE_38]
 # Connect Wireless Card 5.0 GHz
 GRAMMAR_VERSION:			1.0
@@ -637,23 +714,57 @@ TEST_ABORT_ON_FAIL:         True
 TEST_ABORT_MESSAGE:         Connect wireless card 5.0 GHz test failed
 TEST_ACTIVE:                True
 #                           Port,   Frequency(GHz), InterfaceName, InterfaceIP,     maxWaitTime(sec)
-TEST_EXE_PORTS:				WIFI_2, 5.0,            wlan0,         192.168.1.105,   20
+TEST_EXE_PORTS:				WIFI_2, 5.0,            wlan0,         192.168.1.106,   20
+
+[TEST_EXE_38_10]
+# Ping WAN MoCA from WiFi 5.0 GHz
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_38_10
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_wnc_ping_wifi_to_moca_wan
+TEST_EXE_DESC:				Ping WAN MoCA from WiFi 5.0 GHz
+TEST_IMPL_CLASS:            frwk_tests.ping_wan.PingWan
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Failed to ping WAN MoCA from WiFi 5.0 GHz
+TEST_ACTIVE:                False
+#                           dut_port
+TEST_EXE_PORTS:				WIFI_2, MOCA_WAN_1
+
+
+[TEST_EXE_38_11]
+# WiFi 5.0 GHz to WAN MoCA  IPERF
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_38_11
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				vfr_wnc_check_wanmoca_to_wifi_5_0_iperf
+TEST_EXE_DESC:				WAN MoCA to WiFi 5.0 GHz IPERF
+TEST_IMPL_CLASS:            frwk_tests.lan_to_wan_iperf.LanToWanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         WAN MoCA to WiFi 5.0 GHz IPERF failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), retryCount
+TEST_EXE_PORTS:				WIFI_2,    MOCA_WAN_1, 5011,      5,                 15,              1,                 2
+###############
 
 [TEST_EXE_39]
-# WiFi 5.0 GHz to LAN Ethernet4 SPEED test
+# WiFi 5.0 GHz to LAN Ethernet SPEED test
 GRAMMAR_VERSION:			1.0
 PREFIX:						TEST_EXE_
 TEST_EXE_TAG:				TEST_EXE_39
 TEST_EXE_TYPE:				SERIAL
 TEST_EXE_CUSTOM:			VERIZON
 TEST_EXE_NAME:				vfr_check_wifi_5_0_to_lan4_speed
-TEST_EXE_DESC:				WiFi 5.0 GHz to LAN Eth4 SPEED
+TEST_EXE_DESC:				WiFi 5.0 GHz to LAN Eth SPEED
 TEST_IMPL_CLASS:            frwk_tests.lan_to_lan_iperf.LanToLanIperf
 TEST_ABORT_ON_FAIL:         True
-TEST_ABORT_MESSAGE:         WiFi 5.0 GHz to LAN Ethernet4 SPEED test failed
+TEST_ABORT_MESSAGE:         WiFi 5.0 GHz to LAN Ethernet SPEED test failed
 TEST_ACTIVE:                True
 #                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), RetryCount
-TEST_EXE_PORTS:				WIFI_2,    ETH_LAN_4,  5011,      10,                70,              60,                 2
+TEST_EXE_PORTS:				ETH_LAN_1,    WIFI_2,   5011,      10,                70,              10,                 2 || ETH_LAN_2, WIFI_2, 5012, 10, 25, 5, 2 || ETH_LAN_3, WIFI_2, 5013, 10, 25, 5, 2 || ETH_LAN_4, WIFI_2, 5014, 10, 25, 5, 2
 
 [TEST_EXE_40]
 # WiFi 5.0 GHz RSSI after SPEED test
@@ -670,6 +781,57 @@ TEST_ABORT_MESSAGE:         Check WiFi 5.0 GHz RSSI failed
 TEST_ACTIVE:                True
 #                           TestPort,               RSSI(dBm)
 TEST_EXE_PORTS:				TEST_ELECT_DEFAULT,     -55
+
+[TEST_EXE_32_1]
+# LAN MoCA to WAN MoCA SPEED test
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_32_1
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_check_lanmoca_to_wanmoca_speed
+TEST_EXE_DESC:				LAN MoCA to WAN MoCA SPEED
+TEST_IMPL_CLASS:            frwk_tests.lan_to_lan_iperf.LanToLanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN MoCA to WAN MoCA SPEED test failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), retryCount
+TEST_EXE_PORTS:				MOCA_LAN_1, MOCA_WAN_1, 5011,      10,                500,              70,                 2
+
+[TEST_EXE_40_1]
+# Enable WAN Ethernet
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_40_1
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_enable_wan_ethernet
+TEST_EXE_DESC:				Enable WAN Ethernet
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_enable_wan_ethernet.EnableWanEth
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Enable WAN Ethernet failed
+TEST_ACTIVE:                True
+#                           DUT_Port,           Eth_WAN_IP, Netmask,       Gateway
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT
+
+[TEST_EXE_40_2]
+# LAN Ethernet to WAN Ethernet FTP test
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_40_2
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_lan_wan_ethernet
+TEST_EXE_DESC:				LAN Ethernet to WAN Ethernet
+TEST_IMPL_CLASS:            frwk_tests.lan_to_wan_iperf.LanToWanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN Ethernet to WAN Ethernet FTP failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), retryCount
+TEST_EXE_PORTS:				ETH_LAN_1, ETH_WAN_1, 5011,       7,                900,              700,                 2          ||  ETH_LAN_2, ETH_WAN_1, 5012, 7, 900, 700, 2 ||  ETH_LAN_3, ETH_WAN_1, 5013, 7, 900, 700, 2 ||  ETH_LAN_4, ETH_WAN_1, 5014, 7, 900, 700, 2
+
 
 
 [TEST_EXE_41]
