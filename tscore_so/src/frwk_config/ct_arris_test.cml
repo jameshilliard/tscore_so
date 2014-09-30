@@ -1,0 +1,132 @@
+# Copyright 2013-2014 by  Contec. All Rights Reserved.
+#
+
+[TEST_SETUP]
+# Create DUT object and the environment object
+# as per the specifications listed below.
+GRAMMAR_VERSION:	1.0
+CREATE_DUT:			
+CREATE_ENV:			
+TEST_CASE_PREFIX:			TEST_EXE_
+
+[TEST_ELECT_DEFAULT_PORT]
+# Since a number of tests are to be conducted on
+# the DUT and it requires one working LAN port. So,
+# elect one LAN port based on the working LAN port
+# on the given DUT.
+GRAMMAR_VERSION:			1.0
+TEST_ELECT_DEFAULT:			None
+TEST_ELECT_CRITERIA_TEST:	elect_test
+
+[TEST_CASE_INFORMATION]
+# This section describes the number of tests that will
+# have to be executed for verifying this DUT.
+GRAMMAR_VERSION:			1.0
+TEST_CASE_TOTAL:			42
+TEST_CASE_PREFIX:			TEST_EXE_
+
+[TEST_EXE_1]
+# Get DUT information
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_1
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_check_report_server
+TEST_EXE_DESC:				Check Report Server
+TEST_IMPL_CLASS:            frwk_tests.vfr_generic_tests.CheckReportServer
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         No Response from Report Server
+TEST_ACTIVE:                True
+# Port order is important
+TEST_EXE_PORTS:
+
+[TEST_EXE_2]
+# Get DUT information
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_2
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_check_dut_staging
+TEST_EXE_DESC:				Check Dut Staging
+TEST_IMPL_CLASS:            frwk_tests.vfr_generic_tests.CheckDutStaging
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         DUT not in right stage
+TEST_ACTIVE:                True
+# Port order is important
+TEST_EXE_PORTS:
+
+[TEST_EXE_3]
+# Get DUT information
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_3
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			ENVIRONMENT
+TEST_EXE_NAME:				vfr_config_lxc_env
+TEST_EXE_DESC:				Configure Environment
+TEST_IMPL_CLASS:            frwk_tests.vfr_configure_lxc_env.SetLxcEnvTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to set LXC IF address
+TEST_ACTIVE:                True
+# Port order is important
+TEST_EXE_PORTS:
+# At this point the DUT should be in factory default settings mode
+
+[TEST_EXE_4]
+# Confirm factory reset
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_4
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_factory_reset
+TEST_EXE_DESC:				Confirm Factory Reset
+TEST_IMPL_CLASS:            frwk_tests.vfr_confirm_factory_reset.ConfirmFactoryReset
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Failed to confirm Factory Reset
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+[TEST_EXE_5]
+# Elect pingable interface
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_5
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				elect_test
+TEST_EXE_DESC:				Select Ping Interface
+TEST_IMPL_CLASS:            frwk_tests.vfr_elect_test.ElectTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         No Pingable Ethernet Interface
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+# Port order is important
+#TEST_EXE_PORTS:             ETH_LAN_1, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT || ETH_LAN_2, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT || ETH_LAN_3, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT || ETH_LAN_4, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+TEST_EXE_PORTS:             ETH_LAN_1, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_6]
+# Detect DUT
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_6
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_detect_dut
+TEST_EXE_DESC:				Detect DUT
+TEST_IMPL_CLASS:            frwk_tests.vfr_detect_dut.DetectDut
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Please reseat all cables to the unit
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+

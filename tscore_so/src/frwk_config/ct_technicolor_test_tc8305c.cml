@@ -1,0 +1,334 @@
+# Copyright 2013-2014 by  Contec. All Rights Reserved.
+#
+
+[TEST_SETUP]
+# Create DUT object and the environment object
+# as per the specifications listed below.
+GRAMMAR_VERSION:	1.0
+CREATE_DUT:			
+CREATE_ENV:			
+TEST_CASE_PREFIX:			TEST_EXE_
+
+[TEST_ELECT_DEFAULT_PORT]
+# Since a number of tests are to be conducted on
+# the DUT and it requires one working LAN port. So,
+# elect one LAN port based on the working LAN port
+# on the given DUT.
+GRAMMAR_VERSION:			1.0
+TEST_ELECT_DEFAULT:			None
+TEST_ELECT_CRITERIA_TEST:	elect_test
+
+[TEST_CASE_INFORMATION]
+# This section describes the number of tests that will
+# have to be executed for verifying this DUT.
+GRAMMAR_VERSION:			1.0
+TEST_CASE_TOTAL:			18
+TEST_CASE_PREFIX:			TEST_EXE_
+
+[TEST_EXE_1]
+# Check report server
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_1
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_check_report_server
+TEST_EXE_DESC:				Check Report Server
+TEST_IMPL_CLASS:            frwk_tests.xfn_generic_tests.CheckReportServer
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         No Response from Report Server
+TEST_ACTIVE:                True
+# Port order is important
+TEST_EXE_PORTS:
+
+[TEST_EXE_2]
+# Check DUT staging
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_2
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_check_dut_staging
+TEST_EXE_DESC:				Check Dut Staging
+TEST_IMPL_CLASS:            frwk_tests.xfn_generic_tests.CheckDutStaging
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         DUT not in right stage
+TEST_ACTIVE:                True
+# Port order is important
+TEST_EXE_PORTS:
+
+[TEST_EXE_3]
+# Set test environment
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_3
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			ENVIRONMENT
+TEST_EXE_NAME:				xfn_config_lxc_env
+TEST_EXE_DESC:				Configure Environment
+TEST_IMPL_CLASS:            frwk_tests.xfn_configure_lxc_env.SetLxcEnvTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to set LXC IF address
+TEST_ACTIVE:                True
+# Port order is important
+TEST_EXE_PORTS:
+# At this point the DUT should be in factory default settings mode
+
+[TEST_EXE_4]
+# Confirm factory reset
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_4
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_confirm_factory_reset
+TEST_EXE_DESC:				Confirm Factory Reset
+TEST_IMPL_CLASS:            frwk_tests.xfn_confirm_factory_reset.ConfirmFactoryReset
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Failed to confirm Factory Reset
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+[TEST_EXE_5]
+# Elect pingable interface
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_5
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				elect_test
+TEST_EXE_DESC:				Select Ping Interface
+TEST_IMPL_CLASS:            frwk_tests.elect_test.ElectTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         No Pingable Ethernet Interface
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+# Port order is important
+TEST_EXE_PORTS:             ETH_LAN_1, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT || ETH_LAN_2, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT || ETH_LAN_3, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT || ETH_LAN_4, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_6]
+# Detect DUT
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_6
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_detect_dut
+TEST_EXE_DESC:				Detect DUT
+TEST_IMPL_CLASS:            frwk_tests.xfn_detect_dut.DetectDut
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Please reseat all cables to the unit
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_7]
+# Get DUT info
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_7
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_get_dut_info
+TEST_EXE_DESC:				Get DUT info
+TEST_IMPL_CLASS:            frwk_tests.xfn_smc_tcr_get_dut_info.GetDutInfo
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Could not get DUT info
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT
+
+[TEST_EXE_8]
+# Get battery status
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_8
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_get_battery_status
+TEST_EXE_DESC:				Get battery status
+TEST_IMPL_CLASS:            frwk_tests.xfn_arris_smc_tcr_get_battery_status.GetBatteryStatus
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Could not get battery status
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT
+
+[TEST_EXE_9]
+# Get WirelessInfo 2.4GHz
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_9
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			SPECIFIC
+TEST_EXE_NAME:				xfn_get_wireless_info_2_4
+TEST_EXE_DESC:				Get WirelessInfo 2.4GHz
+TEST_IMPL_CLASS:            frwk_tests.xfn_tcr_get_wireless_info.GetWirelessInfo
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to Get Wireless info 2.4 GHz
+TEST_ACTIVE:                True
+#                           Elect Port,         Frequency (GHz)
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, 2.4
+
+[TEST_EXE_10]
+# Check Wireless Signal 2.4 GHz
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_10
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				check_wireless_2_4
+TEST_EXE_DESC:				Check Wireless signal 2.4 GHz
+TEST_IMPL_CLASS:            frwk_tests.check_wireless_signal_2_4.CheckWirelessSignal
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to check wireless signal 2.4 GHz
+TEST_ACTIVE:                True
+#
+#   +--    0 dBm
+#   |
+#   +--   -4 dBm  Xa (Threshold)
+#   |
+#   +--   -10 dBm Xb (Upper)
+#                           Port,  lxc_if, Xa(dBm), Xb(dBm), ssid_detect_max_try_time(sec)
+TEST_EXE_PORTS:				WIFI_1, wlan0, -55,     -65,     20
+
+[TEST_EXE_11]
+# L2 test - send ARP request
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_11
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_TEST:				send_arp
+TEST_EXE_NAME:				send_arp
+TEST_EXE_DESC:				L2 on EthLAN
+TEST_IMPL_CLASS:            frwk_tests.send_arp.SendArp
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         ARP request not received
+TEST_ACTIVE:                True
+# Port order is important   src_port,  dest_port || src_port,  dest_port || ...
+TEST_EXE_PORTS:				ETH_LAN_1, ETH_LAN_2 || ETH_LAN_1, ETH_LAN_3 || ETH_LAN_1, ETH_LAN_4 || ETH_LAN_2, ETH_LAN_3 || ETH_LAN_2, ETH_LAN_4 || ETH_LAN_3, ETH_LAN_4
+
+
+[TEST_EXE_12]
+# Connect Wireless Card 2.4 GHz
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_12
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				connect_wireless_card_2_4
+TEST_EXE_DESC:				Connect wireless card 2.4 GHz
+TEST_IMPL_CLASS:            frwk_tests.connect_wireless_card_2_4.SendArpWiFi
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Connect wireless card 2.4 GHz test failed
+TEST_ACTIVE:                True
+#                           src_port, dst_port,  max_wait_time
+TEST_EXE_PORTS:				WIFI_1,   ETH_LAN_1, 30            ||  WIFI_1, ETH_LAN_2, 30 ||  WIFI_1, ETH_LAN_3, 30 ||  WIFI_1, ETH_LAN_4, 30
+
+[TEST_EXE_13]
+# LAN Eth to WiFi 2.4 GHz IPERF
+# Not in scope, used for verifying traffic passing
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_13
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_check_laneth_to_wifi_2_4_iperf
+TEST_EXE_DESC:				LAN Eth to WiFi 2.4 GHz IPERF
+TEST_IMPL_CLASS:            frwk_tests.lan_to_lan_iperf.LanToLanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN Eth to WiFi 2.4 GHz IPERF failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, Data(MBytes), MaxTime(sec), LowerDataTolerance(%), MaxReTransmitCount, retry_on_failure
+TEST_EXE_PORTS:				WIFI_1,    ETH_LAN_1, 5011,      6.4,          60,           5,                     2000,                2
+
+[TEST_EXE_14]
+# LAN Ethernet to LAN Ethernet IPERF
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_14
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_check_lanEth_to_lanEth_iperf
+TEST_EXE_DESC:				LAN Eth to LAN Eth IPERF
+TEST_IMPL_CLASS:            frwk_tests.lan_to_lan_iperf.LanToLanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN Eth to LAN Eth IPERF failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, Data(MBytes), MaxTime(sec), LowerDataTolerance(%), MaxReTransmitCount, retry_on_failure
+TEST_EXE_PORTS:				ETH_LAN_1, ETH_LAN_2, 5011,      64,           60,           5,                     2000,                2                  ||  ETH_LAN_2, ETH_LAN_3, 5012, 64, 60, 5, 2000, 2 ||  ETH_LAN_3, ETH_LAN_4, 5013, 64, 60, 5, 2000, 2
+
+[TEST_EXE_15]
+# Check if DOCSIS wan is connected
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_15
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_check_docsis_wan_connected
+TEST_EXE_DESC:				Check DOCSIS WAN connection
+TEST_IMPL_CLASS:            frwk_tests.xfn_check_docsis_wan_connection.CheckDocsisWanConnection
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Could not connect to DOCSIS WAN
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, DOCSIS_1, 192.168.0.11
+
+[TEST_EXE_16]
+# Get DS/US info
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_16
+# Options (test execution type - SERIAL, PARALLEL)
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_get_ds_us_info
+TEST_EXE_DESC:				Get DS/US info
+TEST_IMPL_CLASS:            frwk_tests.xfn_arris_smc_tcr_get_ds_us_info.GetDsUsInfo
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Could not get DUT info
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT
+
+[TEST_EXE_17]
+# LAN Ethernet to WAN DOCSIS IPERF
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_17
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_check_lanEth_to_wanDocsis_iperf
+TEST_EXE_DESC:				LAN Eth to WAN DOCSIS IPERF
+TEST_IMPL_CLASS:            frwk_tests.lan_to_wan_iperf.LanToWanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN Eth to WAN DOCSIS IPERF failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, Data(MBytes), MaxTime(sec), LowerDataTolerance(%), MaxReTransmitCount, retry_on_failure
+TEST_EXE_PORTS:				ETH_LAN_1, DOCSIS_1,   5011,      64,           60,           5,                     2000,               2                || ETH_LAN_2, DOCSIS_1, 5012, 64, 60, 5, 2000, 2 || ETH_LAN_3, DOCSIS_1, 5013, 64, 60, 5, 2000, 2 || ETH_LAN_4, DOCSIS_1, 5014, 64, 60, 5, 2000, 2
+
+[TEST_EXE_18]
+# WiFi 2.4 GHz to WAN DOCSIS IPERF
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_18
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				xfn_check_WiFi_2_4_GHZ_to_wanDocsis_iperf
+TEST_EXE_DESC:				WiFi 2.4 GHz to WAN DOCSIS IPERF
+TEST_IMPL_CLASS:            frwk_tests.lan_to_wan_iperf.LanToWanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         WiFi 2.4 GHz to WAN DOCSIS IPERF failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, Data(MBytes), MaxTime(sec), LowerDataTolerance(%), MaxReTransmitCount, retry_on_failure
+TEST_EXE_PORTS:				WIFI_1,    DOCSIS_1,   5011,      6.4,           60,           5,                     2000,               2
+
+

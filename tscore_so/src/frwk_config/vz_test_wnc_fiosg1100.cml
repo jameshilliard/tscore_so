@@ -1,0 +1,689 @@
+# Copyright 2013-2014 by  Contec. All Rights Reserved.
+#
+
+[TEST_SETUP]
+# Create DUT object and the environment object
+# as per the specifications listed below.
+GRAMMAR_VERSION:	1.0
+CREATE_DUT:			
+CREATE_ENV:			
+TEST_CASE_PREFIX:	TEST_EXE_
+
+[TEST_ELECT_DEFAULT_PORT]
+# Since a number of tests are to be conducted on
+# the DUT and it requires one working LAN port. So,
+# elect one LAN port based on the working LAN port
+# on the given DUT.
+GRAMMAR_VERSION:			1.0
+TEST_ELECT_DEFAULT:			None
+TEST_ELECT_CRITERIA_TEST:	elect_test
+
+[TEST_CASE_INFORMATION]
+# This section describes the number of tests that will
+# have to be executed for verifying this DUT.
+GRAMMAR_VERSION:			1.0
+TEST_CASE_TOTAL:			42
+TEST_CASE_PREFIX:			TEST_EXE_
+
+
+[TEST_EXE_1]
+# Check Report Server
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_1
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_check_report_server
+TEST_EXE_DESC:				Check Report Server
+TEST_IMPL_CLASS:            frwk_tests.vfr_generic_tests.CheckReportServer
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         No Response from Report Server
+TEST_ACTIVE:                True
+# Port order is important
+TEST_EXE_PORTS:
+
+[TEST_EXE_2]
+# Configure Environment
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_2
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			ENVIRONMENT
+TEST_EXE_NAME:				vfr_config_lxc_env
+TEST_EXE_DESC:				Configure Environment
+TEST_IMPL_CLASS:            frwk_tests.vfr_configure_lxc_env.SetLxcEnvTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to set LXC IF address
+TEST_ACTIVE:                True
+# Port order is important
+TEST_EXE_PORTS:
+# At this point the DUT should be in factory default settings mode
+
+[TEST_EXE_3]
+# Confirm factory reset
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_3
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_factory_reset
+TEST_EXE_DESC:				Confirm Factory Reset
+TEST_IMPL_CLASS:            frwk_tests.vfr_confirm_factory_reset.ConfirmFactoryReset
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Failed to confirm Factory Reset
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+[TEST_EXE_4]
+# Elect pingable interface
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_4
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				elect_test
+TEST_EXE_DESC:				Select Ping Interface
+TEST_IMPL_CLASS:            frwk_tests.elect_test.ElectTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         No Pingable Ethernet Interface
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+# Port order is important
+TEST_EXE_PORTS:             ETH_LAN_1, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT || ETH_LAN_2, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT || ETH_LAN_3, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT || ETH_LAN_4, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_5]
+# Set Password first time after factory default reset
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_5
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				scan_password
+TEST_EXE_DESC:				Scan Password
+TEST_IMPL_CLASS:            frwk_tests.vfr_scan_password.ScanPassword
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Could not Read Scan Password
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+# Port order is important
+TEST_EXE_PORTS:             TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_6]
+# Detect DUT
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_6
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_detect_dut
+TEST_EXE_DESC:				Detect DUT
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_detect_dut.DetectDut
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to detect DUT. Please reseat all cables to the unit
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_7]
+# Login using rest
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_7
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				login_to_rest_api
+TEST_EXE_DESC:				Login using api
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_login_rest_api.LoginToGui
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to Login
+TEST_USES_UI:               True
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_8]
+# Login to GUI
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_8
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_login_to_gui
+TEST_EXE_DESC:				Login to Gui
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_login_to_gui.LoginToGui
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to Login
+TEST_USES_UI:               True
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+
+[TEST_EXE_9]
+# Get Dut Info and compare the values
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_9
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_get_dut_info
+TEST_EXE_DESC:				Get Dut Info
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_get_dut_info.GetDutInfo
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to Extract Dut Info
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_10]
+# Get Dut Info and compare the values
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_10
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				check_dut_warranty
+TEST_EXE_DESC:				Check DUT Warranty
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_check_warranty.CheckWarranty
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to retrieve version details
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+
+[TEST_EXE_11]
+# Get Dut Info and compare the values
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_11
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				check_dut_version
+TEST_EXE_DESC:				Check DUT Version
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_check_version.CheckDutVersion
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to retrieve version details
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+
+[TEST_EXE_12]
+# Enable SSH
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_12
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_enable_ssh
+TEST_EXE_DESC:				Enable SSH
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_enable_ssh.EnableSSH
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to enable ssh
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_13]
+# Check SSH
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_13
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_check_ssh
+TEST_EXE_DESC:				Check SSH
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_check_ssh.CheckSSH
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to check ssh
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_14]
+# Check SSH
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_14
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_check_mac
+TEST_EXE_DESC:				Check MAC
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_ssh_check_mac.CheckMac
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to check ssh
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_15]
+# Set Date and check RTC
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_15
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_check_rtc
+TEST_EXE_DESC:				Check RTC
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_ssh_check_rtc.CheckRtc
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to check ssh
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_16]
+# Confirm Power LED
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_16
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_power_led
+TEST_EXE_DESC:				Confirm Power LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_confirm_leds.PowerLEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Power LED not ON
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:
+
+
+[TEST_EXE_17]
+# Confirm WiFi LED
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_17
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_wifi_led
+TEST_EXE_DESC:				Confirm WiFi LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_confirm_leds.wifiLEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         WiFi LED not ON
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+
+[TEST_EXE_18]
+# Confirm WPS Function
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_18
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_wps_led
+TEST_EXE_DESC:				Confirm WPS LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_confirm_leds.wpsLEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         WPS LED not ON
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:             TEST_ELECT_DEFAULT
+
+
+[TEST_EXE_19]
+# Confirm USB1 LED
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_19
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_usb1_led
+TEST_EXE_DESC:				Confirm USB1 LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_confirm_leds.Usb1LEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         USB1 LED not ON
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+[TEST_EXE_20]
+# Confirm USB2 LED
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_20
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_usb2_led
+TEST_EXE_DESC:				Confirm USB2 LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_confirm_leds.Usb2LEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         USB2 LED not ON
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+[TEST_EXE_21]
+# Confirm LAN Ethernet 1 LED
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_21
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_lanEth1_led
+TEST_EXE_DESC:				Confirm LAN Ethernet 1 LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_confirm_leds.LanEth1LEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN Ethernet 1 LED not ON
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+[TEST_EXE_22]
+# Confirm LAN Ethernet 2 LED
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_22
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_lanEth2_led
+TEST_EXE_DESC:				Confirm LAN Ethernet 2 LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_confirm_leds.LanEth2LEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN Ethernet 2 LED not ON
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+[TEST_EXE_23]
+# Confirm LAN Ethernet 3 LED
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_23
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_lanEth3_led
+TEST_EXE_DESC:				Confirm LAN Ethernet 3 LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_confirm_leds.LanEth3LEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN Ethernet 3 LED not ON
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+[TEST_EXE_24]
+# Confirm LAN Ethernet 4 LED
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_24
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_lanEth4_led
+TEST_EXE_DESC:				Confirm LAN Ethernet 4 LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_confirm_leds.LanEth4LEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN Ethernet 4 LED not ON
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+[TEST_EXE_25]
+# Confirm WAN Ethernet LED
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_25
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_wan_eth_led
+TEST_EXE_DESC:				Confirm WAN Ethernet LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_confirm_leds.WanEthLEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         WAN Ethernet LED not ON
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+[TEST_EXE_26]
+# Confirm LAN Coax LED
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_26
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_lanCoax_led
+TEST_EXE_DESC:				Confirm LAN Coax LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_confirm_leds.LanCoaxLEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN Coax LED not ON
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+
+[TEST_EXE_27]
+# Configure MoCA WAN
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_27
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_wnc_configure_wan_moca
+TEST_EXE_DESC:				Configure WAN MoCA
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_config_wan_moca.ConfigWanMoca
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to Turn trusted source off
+TEST_ACTIVE:                True
+#                           DUT_Port,           MoCA_WAN_static_IP, Netmask,       Gateway
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, 10.0.1.2,           255.255.255.0, 10.0.1.107
+
+[TEST_EXE_28]
+# Login using rest
+# Need to create login session again, since dut restarts
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_28
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				login_after_moca
+TEST_EXE_DESC:				Login after config MoCA
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_login_rest_api.LoginToGui
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to Login
+TEST_USES_UI:               True
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+
+[TEST_EXE_29]
+# Confirm WAN Coax LED
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_29
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_confirm_wan_coax_led
+TEST_EXE_DESC:				Confirm WAN Coax LED
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_confirm_leds.WanMocaLEDTest
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Failed to configure wan MoCA
+TEST_ACTIVE:                True
+TEST_USES_UI:               True
+TEST_EXE_PORTS:
+
+[TEST_EXE_30]
+# Ping WAN MoCA
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_30
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_ping_moca_wan
+TEST_EXE_DESC:				Ping WAN moca
+TEST_IMPL_CLASS:            frwk_tests.ping_wan.PingWan
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Failed to ping WAN moca
+TEST_ACTIVE:                True
+#                           dut_port
+TEST_EXE_PORTS:				ETH_LAN_1, MOCA_WAN_1 || ETH_LAN_2, MOCA_WAN_1 || ETH_LAN_3, MOCA_WAN_1 || ETH_LAN_4, MOCA_WAN_1 || MOCA_LAN_1, MOCA_WAN_1
+
+[TEST_EXE_31]
+# LAN Ethernet to WAN MoCA SPEED Test
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_31
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_check_wan_ethlan_mocawan_speed
+TEST_EXE_DESC:				LAN ETH1 to WAN MoCA SPEED
+TEST_IMPL_CLASS:            frwk_tests.lan_to_wan_iperf.LanToWanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN ETH1 to WAN MoCA SPEED test failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), retryCount
+TEST_EXE_PORTS:				ETH_LAN_1, MOCA_WAN_1, 5011,      10,                150,             100,                2
+
+[TEST_EXE_32]
+# LAN MoCA to LAN Ethernet SPEED test
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_32
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_check_lanmoca_to_lan_speed
+TEST_EXE_DESC:				LAN MoCA to LAN Eth2 SPEED
+TEST_IMPL_CLASS:            frwk_tests.lan_to_lan_iperf.LanToLanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         LAN MoCA to LAN Ethernet2 SPEED test failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), retryCount
+TEST_EXE_PORTS:				ETH_LAN_2, MOCA_LAN_1, 5011,      10,                80,              70,                 2
+
+[TEST_EXE_33]
+# Configure 2.4GHz wireless interface
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_33
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			SPECIFIC
+TEST_EXE_NAME:				vfr_wnc_set_wireless_interface_2_4ghz
+TEST_EXE_DESC:				Set 2.4 GHz wireless interface
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_set_wireless_interface.SetWirelessInterface
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to set 2.4 GHz wireless interface
+TEST_ACTIVE:                True
+#                           Port,               Frequency(GHz), ChannelNumber
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, 2.4,            6
+
+[TEST_EXE_34]
+# Connect Wireless Card 2.4 GHz
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_34
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				vfr_wnc_connect_wireless_card_2_4ghz
+TEST_EXE_DESC:				Connect wireless card 2.4 GHz
+TEST_IMPL_CLASS:            frwk_tests.connect_wireless_card_noauth_noarp.ConnectWiFiNoAuthNoArp
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Connect wireless card 2.4 GHz test failed
+TEST_ACTIVE:                True
+#                           Port,   Frequency(GHz), InterfaceName, InterfaceIP,     maxWaitTime(sec)
+TEST_EXE_PORTS:				WIFI_1, 2.4,            wlan0,         192.168.1.105,   20
+
+[TEST_EXE_35]
+# WiFi 2.4 GHz to LAN Ethernet3 SPEED test
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_35
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_check_wifi_2_4_to_lan3_speed
+TEST_EXE_DESC:				WiFi 2.4 GHz to LAN Eth3 SPEED
+TEST_IMPL_CLASS:            frwk_tests.lan_to_lan_iperf.LanToLanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         WiFi 2.4 GHz to LAN Ethernet3 SPEED test failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), RetryCount
+TEST_EXE_PORTS:				WIFI_1,    ETH_LAN_3,  5011,      10,                25,              15,                 2
+
+[TEST_EXE_36]
+# WiFi 2.4 GHz RSSI after SPEED test
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_36
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_wnc_check_wifi_2_4_rssi
+TEST_EXE_DESC:				Check WiFi 2.4 GHz RSSI
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_check_rssi.GetRssi
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Check WiFi 2.4 GHz RSSI failed
+TEST_ACTIVE:                True
+#                           TestPort,               RSSI(dBm)
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT,     -55
+
+
+[TEST_EXE_37]
+# Configure 5.0 GHz wireless interface
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_37
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			SPECIFIC
+TEST_EXE_NAME:				vfr_wnc_set_wireless_interface_5_0ghz
+TEST_EXE_DESC:				Set 5.0 GHz wireless interface
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_set_wireless_interface.SetWirelessInterface
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Unable to set 5.0 GHz wireless interface
+TEST_ACTIVE:                True
+#                           Port,               Frequency(GHz), ChannelNumber
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, 5.0,            36
+
+[TEST_EXE_38]
+# Connect Wireless Card 5.0 GHz
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_38
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			NOTSPECIFIC
+TEST_EXE_NAME:				vfr_wnc_connect_wireless_card_5_0ghz
+TEST_EXE_DESC:				Connect wireless card 5.0 GHz
+TEST_IMPL_CLASS:            frwk_tests.connect_wireless_card_noauth_noarp.ConnectWiFiNoAuthNoArp
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Connect wireless card 5.0 GHz test failed
+TEST_ACTIVE:                True
+#                           Port,   Frequency(GHz), InterfaceName, InterfaceIP,     maxWaitTime(sec)
+TEST_EXE_PORTS:				WIFI_2, 5.0,            wlan0,         192.168.1.105,   20
+
+[TEST_EXE_39]
+# WiFi 5.0 GHz to LAN Ethernet4 SPEED test
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_39
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_check_wifi_5_0_to_lan4_speed
+TEST_EXE_DESC:				WiFi 5.0 GHz to LAN Eth4 SPEED
+TEST_IMPL_CLASS:            frwk_tests.lan_to_lan_iperf.LanToLanIperf
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         WiFi 5.0 GHz to LAN Ethernet4 SPEED test failed
+TEST_ACTIVE:                True
+#                           TestPort,  IperfServr, IperfPort, TransferTime(sec), Bandwidth(Mbps), MinBandwidth(Mbps), RetryCount
+TEST_EXE_PORTS:				WIFI_2,    ETH_LAN_4,  5011,      10,                70,              60,                 2
+
+[TEST_EXE_40]
+# WiFi 5.0 GHz RSSI after SPEED test
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_40
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_wnc_check_wifi_5_0_rssi
+TEST_EXE_DESC:				Check WiFi 5.0 GHz RSSI
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_check_rssi.GetRssi
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Check WiFi 5.0 GHz RSSI failed
+TEST_ACTIVE:                True
+#                           TestPort,               RSSI(dBm)
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT,     -55
+
+
+[TEST_EXE_41]
+# Final restore factory defaults
+GRAMMAR_VERSION:			1.0
+PREFIX:						TEST_EXE_
+TEST_EXE_TAG:				TEST_EXE_41
+TEST_EXE_TYPE:				SERIAL
+TEST_EXE_CUSTOM:			VERIZON
+TEST_EXE_NAME:				vfr_final_restore_defaults
+TEST_EXE_DESC:				Final Restore Defaults
+TEST_IMPL_CLASS:            frwk_tests.vfr_wnc_restore_defaults.RestoreDefaults
+TEST_ABORT_ON_FAIL:         True
+TEST_ABORT_MESSAGE:         Final restore defaults failed
+TEST_ACTIVE:                True
+TEST_EXE_PORTS:				TEST_ELECT_DEFAULT, ACCESS_IPV4_ADDRESS_FACTORY_DEFAULT
+

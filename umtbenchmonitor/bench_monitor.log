@@ -1,0 +1,76 @@
+2014-09-26 21:18:40-DEBUG-root      :Starting Monitor App
+2014-09-26 21:18:40-DEBUG-root      :loading configuration
+2014-09-26 21:18:40-DEBUG-root      :creating websocket connection to WebSocket Server
+2014-09-26 21:18:40-DEBUG-root      :connecting to socket
+2014-09-26 21:18:40-DEBUG-root      :connecting to socket at:http://10.10.0.190:8484/
+2014-09-26 21:18:40-DEBUG-root      :websocket connected
+2014-09-26 21:18:40-DEBUG-root      :starting to listen on monitor port
+2014-09-26 21:18:40-DEBUG-root      :starting tcp server socket at port:6252
+2014-09-26 21:18:40-DEBUG-root      :new client arrived
+2014-09-26 21:18:40-DEBUG-root      :Connection established
+2014-09-26 21:18:40-DEBUG-root      :received generic event: set_station_status
+2014-09-26 21:18:56-DEBUG-root      :new client arrived
+2014-09-26 21:18:56-DEBUG-root      :Client Connected:
+2014-09-26 21:18:58-DEBUG-root      :message received:{"timestamp": "2014-09-26 21:19:00", "event": "register", "slotid": "201"}
+2014-09-26 21:18:58-DEBUG-root      :calling ws to activate slot:201at staton:101
+2014-09-26 21:18:58-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:19:29-DEBUG-root      :received generic event: set_station_status
+2014-09-26 21:20:53-DEBUG-root      :received generic event: set_station_status
+2014-09-26 21:20:55-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:20:57-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:20:59-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:21:01-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:21:03-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:21:05-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:21:07-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:21:09-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:21:11-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:21:13-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:21:19-DEBUG-root      :received generic event: set_station_status
+2014-09-26 21:22:41-ERROR-root      :received web socket error: io.socket.SocketIOException: 1+0
+2014-09-26 21:22:43-DEBUG-root      :reconnecting...
+2014-09-26 21:22:43-DEBUG-root      :connecting to socket
+2014-09-26 21:22:43-DEBUG-root      :connecting to socket at:http://10.10.0.190:8484/
+2014-09-26 21:22:43-DEBUG-root      :websocket connected
+2014-09-26 21:22:43-DEBUG-root      :Connection established
+2014-09-26 21:22:43-DEBUG-root      :calling ws to activate slot:201at staton:101
+2014-09-26 21:22:43-DEBUG-root      :received generic event: set_station_status
+2014-09-26 21:22:43-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:22:58-DEBUG-root      :received generic event: set_station_status
+2014-09-26 21:23:00-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:23:02-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:23:05-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:23:06-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:23:08-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:23:10-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:23:12-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:23:14-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:23:16-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:23:18-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:23:27-DEBUG-root      :received generic event: set_slots_by_station
+2014-09-26 21:23:27-DEBUG-root      :received generic event: set_station_status
+2014-09-26 21:23:48-ERROR-root      :received web socket error: io.socket.SocketIOException: 1+0
+2014-09-26 21:23:50-DEBUG-root      :reconnecting...
+2014-09-26 21:23:50-DEBUG-root      :connecting to socket
+2014-09-26 21:23:50-DEBUG-root      :connecting to socket at:http://10.10.0.190:8484/
+2014-09-26 21:23:50-DEBUG-root      :websocket connected
+2014-09-26 21:23:50-DEBUG-root      :Connection established
+2014-09-26 21:23:50-DEBUG-root      :calling ws to activate slot:201at staton:101
+2014-09-26 21:23:50-DEBUG-root      :received generic event: set_station_status
+2014-09-26 21:23:50-DEBUG-root      :received generic event: set_slot_status
+2014-09-26 21:27:32-DEBUG-root      :Starting Monitor App
+2014-09-26 21:27:32-DEBUG-root      :loading configuration
+2014-09-26 21:27:32-DEBUG-root      :creating websocket connection to WebSocket Server
+2014-09-26 21:27:32-DEBUG-root      :connecting to socket
+2014-09-26 21:27:32-DEBUG-root      :connecting to socket at:http://10.10.0.190:8484/
+2014-09-26 21:27:32-DEBUG-root      :websocket connected
+2014-09-26 21:27:32-DEBUG-root      :starting to listen on monitor port
+2014-09-26 21:27:32-DEBUG-root      :starting tcp server socket at port:6252
+2014-09-26 21:27:32-DEBUG-root      :new client arrived
+2014-09-26 21:27:33-DEBUG-root      :Connection established
+2014-09-26 21:27:33-DEBUG-root      :received generic event: set_station_status
+2014-09-26 21:27:34-DEBUG-root      :new client arrived
+2014-09-26 21:27:34-DEBUG-root      :Client Connected:
+2014-09-26 21:27:36-DEBUG-root      :message received:{"timestamp": "2014-09-26 21:27:38", "event": "register", "slotid": "201"}
+2014-09-26 21:27:36-DEBUG-root      :calling ws to activate slot:201at staton:101
+2014-09-26 21:27:36-DEBUG-root      :received generic event: set_slot_status
